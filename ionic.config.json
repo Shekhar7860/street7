@@ -1,0 +1,7 @@
+{
+  "name": "street7",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

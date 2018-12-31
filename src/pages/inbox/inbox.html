@@ -1,0 +1,20 @@
+<ion-header no-border>
+    <ion-navbar>
+      <ion-title >MESSAGES</ion-title>
+      <ion-buttons end> <img class="new-message-image" height="32" width="32" src="assets/imgs/new_message.png"> </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item class="message-container" no-lines *ngFor="let m of messages" (click)="goMessageDetail(m.sender, m.profile_img, m.last_message)">
+        <ion-avatar item-left>
+          <img [src]="m.profile_img">
+        </ion-avatar>
+        <h2>{{ m.sender }} </h2>
+        <p>{{ m.last_message }} </p>
+        <ion-note item-right class="message-time" style="padding-left: 2px">{{ m.time }}</ion-note>
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>

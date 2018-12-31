@@ -1,0 +1,104 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>NEW POST</ion-title>
+    <ion-buttons end ion-button round clear class="btn-edit-profile">
+      SHARE
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="row-more-media-title">
+      <ion-col class="col-more-media-title" (click)="takePhoto()">
+        <ion-icon name="md-camera"></ion-icon>
+        <ion-label class="lbl-photos-videos">Photos and Videos</ion-label>
+      </ion-col>
+      <ion-col class="col-more-media-title-more">
+        <ion-buttons end ion-button clear>
+          More
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 col-md-4 col-xl-3 *ngFor="let post of posts">
+        <div class="post-container">
+          <img class="article-img" no-margin no-padding [src]="post.post_image">
+        </div>
+      </ion-col>
+    </ion-row>
+    <form (submit)="createNewPost()">
+      <ion-row>
+        <ion-col>
+          <ion-item class="item-post_title">
+            <ion-input class="input-post_title" [(ngModel)]="postData.post_title" name="post_title" type="text" placeholder="Title"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item class="item-post_description">
+            <ion-textarea rows="6" placeholder="Description" [(ngModel)]="postData.post_description" name="post_description"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+  <hr no-margin no-padding>
+  <ion-grid>
+   
+    <ion-row class="row-add-co-creators">
+      <ion-col class="col-add-co-creators">
+        <ion-icon name="ios-people"></ion-icon>
+        <ion-label class="lbl-photos-videos">Add Co-Creators</ion-label>
+      </ion-col>
+      <ion-col class="col-add-co-creators-more">
+        <ion-buttons end ion-button clear>
+          More
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+    <!-- Co-Creators -->
+    <ion-row>
+      <ion-col>
+        <!-- Add Co Creaters line -->
+        <ion-scroll class="story" scrollX="true">
+          <div class="story_scroll" *ngFor="let cc of co_creators">
+            <div class="story_img_bg">
+              <img no-margin no-padding class="story_img" [src]="cc.img">
+            </div>
+            <p no-margin no-padding text-center class="story_text">{{ cc.user_name }}</p>
+          </div>
+        </ion-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid> <hr no-margin no-padding>
+  <ion-grid>
+      <ion-row class="row-add-co-creators">
+          <ion-col class="col-add-co-creators">
+            <ion-icon name="md-list-box"></ion-icon>
+            <ion-label class="lbl-photos-videos">Select Category</ion-label>
+          </ion-col>
+          <ion-col class="col-add-co-creators-more">
+            <ion-buttons end ion-button clear>
+              More
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+    <!-- Categories -->
+    <ion-row>
+      <ion-col>
+        <!-- Categories line -->
+        <ion-scroll class="category" scrollX="true">
+          <div class="category_scroll" *ngFor="let s of categories">
+            <p>{{s.category_name}}</p>
+            <div class="category_img_bg">
+              <img no-margin no-padding class="category_img" [src]="s.img">
+            </div>
+            <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+          </div>
+        </ion-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

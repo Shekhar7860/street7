@@ -1,0 +1,34 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>GROUPS</ion-title>
+    <ion-buttons end >
+      <button ion-button clear class="btn-create-group" (click)="gotoCreateGroup()">CREATE</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="all-posts-list">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 col-md-4 col-xl-3 *ngFor="let group of groups">
+          <div class="post-container" tappable (click)="openGroupDetails(group.group_id)">
+            <img class="article-img" no-margin no-padding [src]="group.group_image">
+            <div class="image-details">
+              <div class="left">
+                <p>{{group.group_title}}</p>
+              </div>
+              <div class="right">
+                <p>
+                  <img src="assets/imgs/members.png">
+                  <!--  <ion-icon name="eye"></ion-icon> -->
+                  <i>2k</i>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

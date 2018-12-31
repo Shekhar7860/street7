@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title ><img alt="logo" height="40" src="assets/imgs/logo_small.png" ></ion-title>
+    <button class="btn-my-groups" ion-button clear tappable end (click)="openMyGroups()"> <img height="32" width="32" src="assets/imgs/group_icon.png"> </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- Story line -->
+  <ion-scroll class="story" scrollX="true">
+    <div class="story_scroll" *ngFor="let s of stories" tappable (click)="openPostPage()">
+      <div class="story_img_bg">
+      <img no-margin no-padding class="story_img" [src]="s.img"></div>
+      <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+    </div>
+  </ion-scroll>
+  <hr no-margin no-padding>
+  <!-- Categories line -->
+  <ion-scroll class="category" scrollX="true">
+    <div class="category_scroll" *ngFor="let s of categories">
+      <p>{{s.category_name}}</p>
+      <div class="category_img_bg">
+       <img no-margin no-padding class="category_img" [src]="s.img">
+      </div>
+      <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+    </div>
+  </ion-scroll>
+  <hr no-margin no-padding>
+  <div class="all-posts-list">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 col-md-4 col-xl-3 *ngFor="let post of posts">
+            <div class="post-container" tappable (click)="openPostPage(post.id)">
+                <img class="article-img" no-margin no-padding [src]="post.post_image">
+                <div class="image-details">
+                    <div class="left">
+                        <p>{{post.post_title}}</p>
+                    </div>
+                    <div class="right">
+                        <p>
+                          <img src="assets/imgs/view.png">
+                           <!--  <ion-icon name="eye"></ion-icon> -->
+                            <i>2k</i>
+                        </p>
+                        <p>
+                            <img src="assets/imgs/like.png">
+                          
+                            <!-- <ion-icon name="heart"></ion-icon> -->
+                            <i>2k</i>
+                        </p>
+                        <p>
+                            <img src="assets/imgs/share.png">                          
+                            <!-- <ion-icon name="md-share"></ion-icon> -->
+                            <i>2k</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

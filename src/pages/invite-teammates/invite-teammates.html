@@ -1,0 +1,31 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>INVITE TEAMMATES</ion-title>
+    <ion-buttons end ion-button round clear class="btn-invite-frnds">
+      Invite
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-grid class="search_friends_container">
+        <ion-row>
+            <ion-col>
+              <ion-item class="item-post_title">        
+                <ion-label> <ion-icon mode="ios" name="ios-search"></ion-icon></ion-label>
+                <ion-input clearInput class="input-search_friends" name="input-search_friends" type="search" placeholder="Search by Name"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+    </ion-grid>
+  <ion-list  class="lst-friendslist">
+      <ion-item class="message-container" no-lines *ngFor="let m of messages">
+        <ion-avatar item-left>
+          <img [src]="m.profile_img">
+        </ion-avatar>
+        <ion-label>{{ m.sender }}</ion-label>
+        <ion-checkbox mode="ios" color="secondary" checked="false" (ionChange)="add_remove_friends($event,m.id)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+</ion-content>

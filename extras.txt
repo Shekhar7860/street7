@@ -1,0 +1,3 @@
+For aapt failed error
+<string name="fb_app_id">YOUR_FB_APP_ID</string>
+<string name="fb_app_name">YOUR_FB_APP_NAME</string>

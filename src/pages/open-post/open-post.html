@@ -1,0 +1,108 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>POST TITLE</ion-title>
+  </ion-navbar>
+
+  
+
+</ion-header>
+
+<ion-content fullscreen #myContent>
+    <div class="img-banner-post">
+      <!-- <img src="https://source.unsplash.com/random"> -->
+      <div class="like-share-view-container">
+        <p>
+          <ion-icon name="ios-eye-outline"></ion-icon>
+          <i>4345</i>
+        </p>
+        <p>
+          <ion-icon name="md-heart-outline"></ion-icon>
+          <i>636</i>
+        </p>
+        <p>
+          <ion-icon name="share"></ion-icon>
+          <i>324</i>
+        </p>
+  
+      </div>
+    </div>
+  <ion-grid>
+    <ion-row class="buttons-container">
+      <ion-col>
+        <button ion-button round clear class="btn-user-content" (click)="changeIcon()">
+          <ion-icon [name]="like"></ion-icon>
+          <p>Like</p>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button round clear class="btn-user-content " (click)="share()">
+          <ion-icon name="md-share"></ion-icon>
+          <p>Share</p>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button round clear class="btn-user-content ">
+          <ion-icon name="ios-people-outline"></ion-icon>
+          <p>Invite Teammates</p>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button round clear class="btn-user-pm">
+          <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+          <p>PM</p>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="posted-user-details">
+        <div class="story_img_bg">
+          <img no-margin no-padding class="story_img" src="https://source.unsplash.com/random">
+        </div>
+        <p>Jonathan Segal</p>
+        <ion-item>
+          <ion-icon name="ios-clock-outline"></ion-icon>
+          <ion-label class="posted-time-duration"><img src="assets/imgs/clock.png">2 days ago</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label class="post-title">Post Title</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="post-content">
+      <ion-col>
+        <p>
+          The sight of the tumblers restored Bob Sawyer to a degree of equanimity which he had not possessed since his interview with his landlady. His face brightened up, and he began to feel quite convivial.
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item class="message-container" no-lines *ngFor="let m of messages" (click)="goMessageDetail(m.sender, m.profile_img, m.last_message)">
+      <ion-avatar item-left>
+        <img [src]="m.profile_img">
+      </ion-avatar>
+      <h2>{{ m.sender }} </h2>
+      <p>{{ m.last_message }} </p>
+      <ion-note item-right class="message-time" style="padding-left: 2px"><img src="assets/imgs/clock.png">{{ m.time }}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="add-comment-container">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8>
+          <ion-input type="text" placeholder="ADD A COMMENT"></ion-input>
+        </ion-col>
+        <ion-col col-4 class="btn-add-comment">
+          <button ion-button round clear>SEND</button>          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

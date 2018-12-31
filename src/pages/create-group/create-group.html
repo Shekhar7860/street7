@@ -1,0 +1,42 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>CREATE GROUP</ion-title>
+    <ion-buttons end >
+      <button ion-button clear class="btn-create-group">CREATE</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="lst-row1">
+    <ion-item class="message-container" no-lines>
+      <ion-avatar item-left>
+        <img src="assets/imgs/gallery.png">
+      </ion-avatar>
+      <ion-input class="input-post_title" name="group_name" type="text" placeholder="Group Name"></ion-input>
+    </ion-item>
+  </ion-list>
+  
+  <ion-grid class="grid-select-friendlist">
+    <ion-row class="row-more-media-title">
+      <ion-col class="col-more-media-title">
+        <img src="assets/imgs/friends.png">
+        <ion-label class="lbl-photos-videos">Select Friends</ion-label>
+      </ion-col>
+      <ion-col class="col-more-media-title-more">
+       <!--  <ion-buttons end ion-button clear>
+          More
+        </ion-buttons> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr>
+  <ion-list  class="lst-friendslist">
+    <ion-item class="message-container" no-lines *ngFor="let m of messages">
+      <ion-avatar item-left>
+        <img [src]="m.profile_img">
+      </ion-avatar>
+      <ion-label>{{ m.sender }}</ion-label>
+      <ion-checkbox mode="ios" color="secondary" checked="false" (ionChange)="add_remove_friends($event,m.id)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

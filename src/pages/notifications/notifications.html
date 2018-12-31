@@ -1,0 +1,19 @@
+<ion-header no-border>
+    <ion-navbar>
+      <ion-title >NOTIFICATIONS</ion-title>
+      <!-- <ion-buttons end> <img class="new-message-image" height="32" width="32" src="assets/imgs/new_message.png"> </ion-buttons> -->
+    </ion-navbar>
+  </ion-header>
+  
+<ion-content>
+  <ion-list>
+    <ion-item class="message-container" no-lines *ngFor="let notif of notifications">
+      <ion-avatar item-left>
+        <img [src]="notif.profile_img">
+      </ion-avatar>
+      <div [innerHtml]="notif.notification_text" class="lbl-notification-content"></div>
+      <!-- <ion-label >{{ notif.notification_text }} </ion-label> -->
+      <p class="message-time">{{ notif.notif_time }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,265 @@
+page-open-post {
+    .img-banner-post {
+        display: block;
+        height: 170px;
+        background: url(https://source.unsplash.com/random);
+        background-size: cover !important;
+        
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        width: 100%;
+        position: relative;
+        text-align: center;
+        color: black;
+        
+        /* img{
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        } */
+        .like-share-view-container p {
+            display: inline-block;
+            width: 25%;
+        }
+        .like-share-view-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+    }
+    
+    .scroll-content{
+        background-image: url("../assets/imgs/home_bg.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    ion-header{
+        border-bottom: 1px solid black;
+    }
+    ion-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 90px 1px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        z-index: 0;
+    }
+    .toolbar-background{
+        background:#FFF; 
+    }
+    .toolbar-title {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 16px !important;
+        letter-spacing: 2px;
+        font-weight: bold !important;
+    }
+    .back-button.show-back-button{
+        z-index: 1;
+    }
+    
+    ion-buttons[start] {
+        order: 2;
+      }
+      .buttons-container .col{
+            padding: 5px 0;
+            position: relative;
+            width: auto;
+            margin: 0;
+            min-height: 1px;
+            display: inline-grid;
+      }
+      .buttons-container .col .btn-user-content{
+        padding: 5px;
+        width: auto;
+        background: url("../assets/imgs/button_tab.png");
+        height: auto;
+        color: black;
+        font-weight: 500;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .btn-user-content .button-inner {
+        display: grid;
+        font-size: 10px;
+        text-transform: none;
+        font-weight: 500;
+        width: 100%;
+    }
+    .btn-user-content .button-inner p {
+        padding: 0px;
+        margin: 0;
+    }
+    .btn-user-content .button-inner ion-icon{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .btn-user-pm{
+        padding: 5px;
+        width: 100%;
+        background: url("../assets/imgs/button.png");
+        height: auto;
+        color: black;
+        font-weight: 500;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        font-size: 15px;
+        p{
+            margin: 0;
+            padding: 5px;
+            letter-spacing: 2px;
+        }
+        ion-icon{
+            font-weight: bold;
+        }
+    }
+    .story_img_bg {
+        width: auto;
+        
+        margin: 0;
+        border-radius: 50%;
+        padding-bottom: 0;
+        transition: all 1s;
+        -webkit-transition: all 0.2s;
+        float: none;
+        display: inline-block;
+      }
+    
+      .story_img_bg:active {
+        background: -webkit-linear-gradient(left top, #DD2352 0%, #F1642F 100%);
+        transform: scale(1.1);
+      }
+    
+      .story_img {
+        width: 44px;
+        border-radius: 50px;
+        height: 44px;
+        border:2px solid #0b8fa5;
+      }
+    .posted-user-details{
+
+        display: block;
+        width: 100%;
+        float: none;
+        vertical-align: middle;
+
+        .posted-time-duration {
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            color: dimgrey;
+            font-weight: lighter;
+        }
+
+        ion-item{
+            display: inline-block;
+            width: auto;
+            background: transparent;
+            float: right;
+
+            .item-inner{
+                border-bottom:none !important;
+            }
+        }
+        p{
+            margin: 0;
+            padding: 0;
+            width: auto;
+            display: inline-block;
+            line-height: 45px;
+            vertical-align: text-bottom;
+            font-weight: 500;
+            font-size: 15px;
+        }
+    }
+    .post-title{
+        font-weight: 500;
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+    }
+    .post-content{
+        p{
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .add-comment-container{
+        
+        .toolbar-background-md{
+            background-color: rgba(255, 254, 254, 0.5);
+        }
+        ion-toolbar,ion-grid,ion-row{
+            padding:0px;
+        }
+
+        .btn-add-comment button{
+            background: url("../assets/imgs/button.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #000;
+            padding: 6px 16px;
+            font-weight: 400 ;
+            margin: 0;
+            height: auto;
+            vertical-align: middle;
+            top: 10px;
+            float: right;
+        }
+    }
+    ion-item.item.item-block {
+        background: transparent;
+    }
+    img.new-message-image {
+        height: 20px;
+        width: 20px;
+    }
+   
+    .message-time{
+        float: right;
+    }
+    ion-note.message-time.note {
+        margin: 10px;
+        padding: 0;
+        vertical-align: top;
+        display: block;
+        position: absolute;
+        float: right;
+        right: 0;
+        font-size: 9px;
+        letter-spacing: 1px;
+        color: #656565;
+        top: 0;
+    }
+    ion-item.message-container.item.item-block {
+        border-top: 1px solid #0b8fa5;
+    }
+    ion-header{
+        border-bottom: 1px solid black;
+    }
+    .message-container h2 {
+        font-size: 15px;
+    }
+    .message-container p {
+        font-size: 13px;
+    }
+    .message-container .message-time img, .posted-user-details .posted-time-duration img {
+        width: 13px;
+        vertical-align: middle;
+        margin: 0 5px;
+    }
+}

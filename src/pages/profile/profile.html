@@ -1,0 +1,302 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons start>
+        <button class="new-message-image" ion-button clear tappable end (click)="invite_to_street7();"> <img height="25" width="25" src="assets/imgs/add_icon.png"> </button>
+    </ion-buttons>
+    <ion-title>USER NAME</ion-title>
+    <ion-buttons end>
+      <button class="btn-my-groups" ion-button clear tappable end (click)="gotoSettingspage()"> <img height="25" width="25" src="assets/imgs/settings.png"> </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img class="profile-photo" (click)="getProfilImageFromGallry()" src="assets/imgs/profile_static.png"></ion-img>
+        <button ion-button round clear class="btn-edit-profile" (click)="gotoEditprofilepage()">Edit Profile</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="main-progress-bar">
+          <div class="upper-progress"></div>
+          <p>100/500</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="buttons-container">
+      <ion-col>
+        <!-- Segment in content -->
+        <ion-segment [(ngModel)]="profile_tab" color="primary" (ionChange)="segmentChanged($event)">
+          <!-- (ionChange)="segmentChanged($event)" -->
+          <ion-segment-button round clear class="btn-user-content" value="new_post">
+            New Post
+          </ion-segment-button>
+          <ion-segment-button round clear class="btn-user-content" value="teammates">
+            Teammates
+          </ion-segment-button>
+          <ion-segment-button round clear class="btn-user-content" value="friends">
+            Friends
+          </ion-segment-button>
+          <ion-segment-button round clear class="btn-user-content" value="credit">
+            Credit
+          </ion-segment-button>
+          <ion-segment-button round clear class="btn-user-content" value="reviews">
+            Reviews
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="all-posts-list" [ngSwitch]="profile_tab">
+    <div *ngSwitchCase="'new_post'">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 col-md-4 col-xl-3 *ngFor="let post of posts">
+            <div class="post-container" tappable (click)="goto_open_post($event)">
+              <img class="article-img" no-margin no-padding [src]="post.post_image">
+              <div class="image-details">
+                <div class="left">
+                  <p>{{post.post_title}}</p>
+                </div>
+                <div class="right">
+                  <p>
+                    <ion-icon name="eye"></ion-icon>
+                    <i>2k</i>
+                  </p>
+                  <p>
+                    <ion-icon name="heart"></ion-icon>
+                    <i>2k</i>
+                  </p>
+                  <p>
+                    <ion-icon name="md-share"></ion-icon>
+                    <i>2k</i>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngSwitchCase="'teammates'" class="segment-content-teammates">
+      <ion-grid>
+        <ion-row class="row-invite-friend">
+          <ion-col class="col-row-invite-friend">
+            <button ion-button clear class="btn-invite-teammates" (click)="gotoInviteContactlist()">
+              <img src="assets/imgs/add_icon.png">INVITE TEAMMATES</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row class="row-more-media-title">
+          <ion-col class="col-more-media-title">
+            <img src="assets/imgs/friends.png">
+            <ion-label class="lbl-photos-videos">Friends</ion-label>
+          </ion-col>
+          <ion-col class="col-more-media-title-more">
+            <ion-buttons end ion-button clear>
+              More
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <ion-list>
+        <ion-item class="message-container" no-lines *ngFor="let m of messages" (click)="goMessageDetail(m.sender, m.profile_img, m.last_message)">
+          <ion-avatar item-left>
+            <img [src]="m.profile_img">
+          </ion-avatar>
+          <h2>{{ m.sender }} </h2>
+          <!-- <p>{{ m.last_message }} </p>
+              <ion-note item-right class="message-time" style="padding-left: 2px">
+                <img src="assets/imgs/review_star.png" *ngFor="let number of [0,1,2,3,4]">
+              </ion-note> -->
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'friends'" class="segment-content-friends">
+      <ion-grid>
+        <ion-row class="row-invite-friend">
+          <ion-col class="col-row-invite-friend">
+            <button ion-button round clear class="btn-invite-friends" (click)="gotoInviteContactlist()">
+              <img src="assets/imgs/add_icon.png">INVITE FRIENDS TO STREET7</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row class="row-more-media-title">
+          <ion-col class="col-more-media-title">
+            <img src="assets/imgs/friends.png">
+            <ion-label class="lbl-photos-videos">Friends</ion-label>
+          </ion-col>
+          <ion-col class="col-more-media-title-more">
+            <ion-buttons end ion-button clear>
+              More
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <ion-list>
+        <ion-item class="message-container" no-lines *ngFor="let m of messages" (click)="goMessageDetail(m.sender, m.profile_img, m.last_message)">
+          <ion-avatar item-left>
+            <img [src]="m.profile_img">
+          </ion-avatar>
+          <h2>{{ m.sender }} </h2>
+          <!-- <p>{{ m.last_message }} </p>
+          <ion-note item-right class="message-time" style="padding-left: 2px">
+            <img src="assets/imgs/review_star.png" *ngFor="let number of [0,1,2,3,4]">
+          </ion-note> -->
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'credit'" class="segment-content-credit">
+      <ion-grid>
+        <ion-row class="row-more-media-title">
+          <ion-col col-8 class="col-more-media-title">
+            <img src="assets/imgs/contribution.png">
+            <ion-label class="lbl-photos-videos">Number of Contribution</ion-label>
+          </ion-col>
+          <ion-col col-4 class="col-more-media-title-more">
+            <ion-buttons end ion-button clear>
+              More
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <ion-list>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Review
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Rating
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Post Screen
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Invide Friend
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Add Teammates
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Share Post
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item class="list-container">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="title" col-9>
+                Liked Post
+              </ion-col>
+              <ion-col class="star" col-3>
+                <div>20</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'reviews'" class="segment-content-review">
+      <ion-grid>
+        <ion-row class="row-more-media-title">
+          <ion-col class="col-more-media-title">
+            <img src="assets/imgs/review_icon.png">
+            <ion-label class="lbl-photos-videos">Reviews</ion-label>
+          </ion-col>
+          <ion-col class="col-more-media-title-more">
+            <ion-buttons end ion-button clear>
+              More
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <ion-list>
+        <ion-item class="message-container" no-lines *ngFor="let m of messages" (click)="goMessageDetail(m.sender, m.profile_img, m.last_message)">
+          <ion-avatar item-left>
+            <img [src]="m.profile_img">
+          </ion-avatar>
+          <h2>{{ m.sender }} </h2>
+          <p>{{ m.last_message }} </p>
+          <ion-note item-right class="message-time" style="padding-left: 2px">
+            <!-- {{ m.time }} -->
+            <img src="assets/imgs/review_star.png" *ngFor="let number of [0,1,2,3,4]">
+          </ion-note>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+<ion-footer *ngIf="footerIsHidden" class="add-comment-container">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8>
+          <ion-input type="text" placeholder="WRITE A REVIEW"></ion-input>
+        </ion-col>
+        <ion-col col-4 class="btn-add-comment">
+          <button ion-button round clear>POST</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,89 @@
+<ion-header no-border>
+    <ion-navbar>
+      <ion-title>GROUP TITLE</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+      <div class="img-banner-post">
+        <!-- <img src="https://source.unsplash.com/random"> -->
+        <div class="like-share-view-container">
+          <p>
+            <img src="assets/imgs/members.png">
+            <span>32,466 Members</span>
+          </p>
+        </div>
+      </div>
+      <!-- Story line -->
+      <ion-scroll class="story" scrollX="true">
+        <div class="story_scroll" *ngFor="let s of stories">
+          <div class="story_img_bg">
+          <img no-margin no-padding class="story_img" [src]="s.img"></div>
+          <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+        </div>
+        <div class="story_scroll">
+          <div class="story_img_bg">
+          <img no-margin no-padding class="story_img" src="assets/imgs/add_more_story.png"></div>
+          <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+        </div>
+      </ion-scroll>
+      <ion-grid>
+        <ion-row class="row-invite-friend">
+          <ion-col class="col-row-invite-friend">
+            <button ion-button round clear class="btn-invite-friends">
+              <img src="assets/imgs/add_icon.png">CHAT</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr no-padding no-margin>
+      <ion-grid>
+        <ion-row class="row-add-new-post">
+          <ion-col class="col-user-img" col-2>
+              <ion-item no-padding no-margin>
+                  <ion-avatar item-start>
+                    <img src="https://source.unsplash.com/120x120">
+                  </ion-avatar>
+                </ion-item>
+          </ion-col>
+          <ion-col class="col-user-input" col-5>
+            <ion-item class="item-username">
+              <ion-input name="new_post_content" type="text" placeholder="Write A Message" class="input-username"></ion-input>
+            </ion-item>
+          </ion-col>  
+          <ion-col class="col-user-gallary" col-2>
+            <div class="story story_scroll">
+              <div class="story_img_bg">
+              <img class="story_img" src="assets/imgs/gallery.png"></div>
+              <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
+            </div>
+          </ion-col>
+          <ion-col class="col-user-post" col-3 >
+            <button ion-button round clear class="btn-add-new-post">
+              POST
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr no-margin no-padding>
+      <ion-list class="list-posts"> <!-- add ng if and for here -->
+        <ion-item class="post message-container" no-lines>
+          <ion-avatar item-left>
+            <img src="https://source.unsplash.com/120x120">
+          </ion-avatar>
+          <h2>Jonathan Segal</h2>
+          <ion-note item-right class="message-time" style="padding-left: 2px">2 Days ago</ion-note>
+        </ion-item>
+        <img class="post-imgs" src="https://source.unsplash.com/random">
+        <ion-grid class="btn-like-comment-container">
+          <ion-row>
+            <ion-col>
+              <button ion-button round clear class="btn-post-like">
+                <img src="assets/imgs/like_black.png">Like</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button round clear class="btn-post-comment">
+                <img src="assets/imgs/comment.png">Comment</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+  </ion-content>

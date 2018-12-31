@@ -1,0 +1,27 @@
+<ion-tabs #mTabsMain color="primary">
+  <ion-tab [root]="tab1Root" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabIcon="mail"></ion-tab>
+  <ion-tab [root]="tab3Root" tabIcon="create" class="create-new-post-large"></ion-tab>
+  <ion-tab [root]="tab4Root" tabIcon="notifications"></ion-tab>
+  <ion-tab [root]="tab5Root" tabIcon="contact"></ion-tab>
+</ion-tabs>
+<button ion-buttons class="middle-fab-large" tappable (click)="gotoNewPostPage($event)">
+  <img src="assets/imgs/new_post_icon.png">
+</button>
+<style>
+  .middle-fab-large {
+    display: block;
+    width: 26%;
+    bottom: -20px;
+    position: absolute;
+    padding: 25px;
+    border-radius: 50px;
+    background-color: #ff7c39;
+    text-align: center;
+    float: none;
+    left: 37.5%;
+}
+.middle-fab-large img {
+    max-height: 35px;
+}
+</style>
