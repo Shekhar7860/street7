@@ -118,5 +118,8 @@
         <variable name="SENDER_ID" value="454166531047" />
         <variable name="FCM_VERSION" value="11.6.2" />
     </plugin>
+    <plugin name="cordova-plugin-streaming-media" spec="^2.2.0" />
+    <plugin name="cordova-plugin-filechooser" spec="^1.2.0" />
+    <plugin name="cordova-plugin-media-capture" spec="^3.0.2" />
     <engine name="android" spec="^7.0.0" />
 </widget>

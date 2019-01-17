@@ -37,14 +37,16 @@ export class RegisterPage {
   {
 	if(this.regData.user_password == this.regData.confirmpassword)
 	{
-  //  this.globals.showLoader('Registering...');
+    this.globals.showLoader('Registering...');
 	   console.log(this.regData)
-    this.rest_call.user_update(this.regData, 1, this.photo, 0, 0).then((result) => {
-    
+    this.rest_call.user_update(this.regData, 1,  this.selectedimage, 0, 0).then((result) => {
+    if(result){
 	  console.log(result);
-	//  this.globals.loading.dismiss();
-	 // this.globals.presentToast("User Created Successfully");
-	 // this.navCtrl.pop();
+	  this.globals.loading.dismiss();
+	  this.globals.presentToast("User Created Successfully");
+    this.navCtrl.pop();
+    }
+	  
       // this.loading.dismiss();
       // this.response = result;
       // this.navCtrl.pop();

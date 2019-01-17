@@ -2,56 +2,85 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera'; 
 import { GlobalsProvider } from '../../providers/globals/globals';
+import { RestProvider } from "../../providers/rest/rest";
+import { FileChooser } from '@ionic-native/file-chooser';
+import { MediaCapture, MediaFile, CaptureError, CaptureVideoOptions } from '@ionic-native/media-capture';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 /**
  * Generated class for the NewPostPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
- */
+ */                               
 
 @Component({
   selector: 'page-new-post',
   templateUrl: 'new-post.html',
 })
 export class NewPostPage {
+videoId: any;
+postData : any = {}                
+flag_upload = true;
+flag_play = true;
+  form:any;
+image1 : any = 'https://source.unsplash.com/160x150';
+image2 : any = 'https://source.unsplash.com/160x150';
+image3 : any = 'https://source.unsplash.com/160x150';
+image4 : any = 'https://source.unsplash.com/160x150';
+image5 : any = 'https://source.unsplash.com/160x150';
+image6 : any = 'https://source.unsplash.com/160x150';
+upload_images:any=[];
+loggedinuserdata : any;
+ show_image:any=[
+    {
+      'id': 0,
+      'url':'https://source.unsplash.com/160x150'
+    },
+    {
+      'id': 1,
+      'url':'https://source.unsplash.com/160x150'
+    },
+    {
+      'id': 2,
+      'url':'https://source.unsplash.com/160x150'
+    },
+    {
+      'id': 3,
+      'url':'https://source.unsplash.com/160x150'
+    },
+    {
+      'id': 4,
+      'url':'https://source.unsplash.com/160x150'
+    },
+    {
+      'id': 5,
+      'url':'https://source.unsplash.com/160x150'
+    },
+  ];
+
 const options: CameraOptions = {
   quality: 100,
   PictureSourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
   destinationType: this.camera.DestinationType.FILE_URI,
   encodingType: this.camera.EncodingType.JPEG,
   mediaType: this.camera.MediaType.PICTURE
-}
+}                                                                                                                                                                                     
   public posts = [
-    {
-      id: 1,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'For You'
-    },
-    {
-      id: 2,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'Style'
-    },
-    {
-      id: 3,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'Fitness'
-    },
-    {
-      id: 4,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'Beautfy'
-    },
-    {
-      id: 5,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'Property'
-    },
-    {
-      id: 6,
-      post_image: 'https://source.unsplash.com/160x150',
-      post_title: 'Property'
-    }
+   
+      'https://source.unsplash.com/160x150',
+     
+    'https://source.unsplash.com/160x150',
+     
+   
+      'https://source.unsplash.com/160x150',
+    
+       'https://source.unsplash.com/160x150',
+     
+                               
+     'https://source.unsplash.com/160x150',
+    
+     'https://source.unsplash.com/160x150',
+                    
   ];
   postData = { post_title:'', post_description:'' };
   public co_creators = [
@@ -111,7 +140,7 @@ const options: CameraOptions = {
       user_name: 'linus_torvalds'
     }
     
-  ];
+  ];                                       
   public categories = [
     {
       id: 1,
@@ -139,59 +168,119 @@ const options: CameraOptions = {
       category_name: 'Property'
     }
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public actionSheetCtrl:ActionSheetController,  public globals: GlobalsProvider) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public actionSheetCtrl:ActionSheetController,  public globals: GlobalsProvider, public rest_call: RestProvider, public streamingMedia: StreamingMedia, public fileChooser: FileChooser, private mediaCapture: MediaCapture) {
+   this.loggedinuserdata = window.localStorage.getItem('userData');
+
+  }                         
 
   ionViewDidLoad() {
+  
+   console.log('userdata' , this.loggedinuserdata)
+      this.form = new FormData();
+     
+     var userData = JSON.parse(this.loggedinuserdata);
+     console.log('userid', userData.user_id)
+     this.form.append('post_user_id', userData.user_id);
+     this.form.append('post_category', 'style');
+     this.form.append('post_title', 'title');
+      this.form.append('post_description', 'description');
+      this.form.append("insert",1)
     console.log('ionViewDidLoad NewPostPage');
+    this.rest_call.getCategory().then((result) => {
+    console.log(result);
+    this.categories = result['data'];
+    }, (err) => {
+      console.log(err);
+      this.globals.presentToast(JSON.stringify(err));
+    });
   }
+
+
   createNewPost(){
 
   }
+                                                         
+
+  selectphoto(id:number,no:number) {
+    let actionSheet = this.actionSheetCtrl.create({
+           title: 'Choose Photos',
+           buttons: [
+             {
+               text: 'Camera',
+               role: 'destructive',
+               handler: () => {
+                 this.camera.getPicture({
+                 sourceType: this.camera.PictureSourceType.CAMERA,
+                 destinationType: this.camera.DestinationType.DATA_URL
+              }).then((imageData) => {
+                    this.show_image[no].url = 'data:image/jpeg;base64,'+imageData;
+                     let block = this.show_image[no].url.split(";");
+                    let contentType = block[0].split(":")[1];// In this case "image/gif"
+                    let realData = block[1].split(",")[1];//
+                    let _image_object={
+                      'index':no,
+                      'image':this.b64toBlob(realData,contentType),
+                     };
+                    this.upload_images.push(_image_object);
+                  
+              }, (err) => {
+              console.log(err);
+            });
+               }                                                                                                      
+             },
+             {
+               text: 'Gallery',
+               handler: () => {
+              this.camera.getPicture({
+              sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+              destinationType: this.camera.DestinationType.DATA_URL
+           }).then((imageData) => {
+                this.show_image[no].url = 'data:image/jpeg;base64,'+imageData;
+                 let block = this.show_image[no].url.split(";");
+                   let contentType = block[0].split(":")[1];// In this case "image/gif"
+                    let realData = block[1].split(",")[1];//
+                    let _image_object={
+                      'index':no,
+                      'image':this.b64toBlob(realData,contentType),
+                     };
+                      this.upload_images.push(_image_object);
+           }, (err) => {
+           console.log(err);
+         });
+               }
+             },
+             {
+               text: 'Cancel',
+               role: 'cancel',
+               handler: () => {
+                 console.log('Cancel clicked');
+               }
+             }
+           ]
+         });
+
+         actionSheet.present();
+}
+
   gotoPreviousStat(){
     this.navCtrl.pop();
   }
 
-  takePhoto () {
+    takePhotoVideo () {
  let actionSheet = this.actionSheetCtrl.create({
-       title: 'Choose Photos',
+       title: 'Choose Option',
        buttons: [
          {
-           text: 'Camera',
+           text: 'Photo',
            role: 'destructive',
            handler: () => {
-
-             this.camera.getPicture({
-             sourceType: this.camera.PictureSourceType.CAMERA,
-             destinationType: this.camera.DestinationType.DATA_URL
-          }).then((imageData) => {
-            this.selectedimage = 'data:image/jpeg;base64,'+imageData;
-           let block =   this.selectedimage.split(";");
-           let contentType = block[0].split(":")[1];// In this case "image/gif"
-           let realData = block[1].split(",")[1];//
-           this.photo =this.b64toBlob(realData,contentType);
-
-          }, (err) => {
-             this.globals.presentToast(JSON.stringify(err));
-        });
+            this.takePhoto()
            }               
          },
-         {
-           text: 'Gallery',
+         {  
+           text: 'Video',
            handler: () => {
-          this.camera.getPicture({
-          sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
-          destinationType: this.camera.DestinationType.DATA_URL
-       }).then((imageData) => {
-         this.selectedimage = 'data:image/jpeg;base64,'+imageData;
-         let block =  this.selectedimage.split(";");
-         let contentType = block[0].split(":")[1];// In this case "image/gif"
-         let realData = block[1].split(",")[1];//
-         this.photo =this.b64toBlob(realData,contentType);
-       }, (err) => {
-          this.globals.presentToast(JSON.stringify(err));
-                       
-     });
+          this.presentActionSheet()
            }
          },
          {
@@ -204,6 +293,111 @@ const options: CameraOptions = {
        ]
      });
      actionSheet.present();
+  }
+
+ 
+                    
+selectedCategory(val){
+  console.log(val)
+}
+
+  public presentActionSheet() {
+let actionSheet = this.actionSheetCtrl.create({
+title: 'Select Video Source',
+buttons: [
+{
+text: 'Load from Gallery',
+handler: () => {
+this.getVideo();
+}},
+{
+text: 'Use Camera',
+handler: () => {
+this.capturevideo();
+}},
+{
+text: 'Cancel',
+role: 'cancel'
+}
+]});
+actionSheet.present();
+}
+
+
+removeimage(id:number,index:number){
+    this.show_image[index].id=0;
+    this.show_image[index].url="assets/imgs/c.png";
+    let new_index=0;
+    for(let i= 0;i<=this.upload_images.length;i++){
+        if(this.upload_images.index==index){
+          new_index=i;
+        }
+    }
+    if(this.upload_images.length>0){
+        this.upload_images.splice(new_index,1);
+    }
+  }
+
+getVideo() {
+this.fileChooser.open()
+.then(uri => {
+this.videoId = uri;
+this.flag_play = false;
+this.flag_upload = false;
+})
+.catch(e => console.log(e));
+}
+
+
+capturevideo() {
+let options: CaptureVideoOptions = { limit: 1 };
+this.mediaCapture.captureVideo(options)
+.then((videodata: MediaFile[]) => {
+var i, path, len;
+for (i = 0, len = videodata.length; i < len; i += 1) {
+path = videodata[i].fullPath;
+// do something interesting with the file
+}
+this.videoId = path;
+this.flag_play = false;
+this.flag_upload = false;
+});
+}
+                      
+ share() {
+  this.globals.showLoader('Please Wait...');
+  setTimeout(() => {
+  console.log(this.postData);                
+  console.log('images', this.upload_images)
+   for(let i=0; i<this.upload_images.length; i++){
+        if(typeof this.upload_images[i].image=='object'){
+          this.form.append('post_media',this.upload_images[i].image);
+        }
+     }
+     this.rest_call.createPost(  this.form).then((result) => {
+  if(result){
+   console.log('myresult', result);
+    if(result.status == 'success' )
+    {
+      this.globals.loading.dismiss();
+       
+    }
+    else
+    {
+     this.globals.presentToast("An error occured");
+    }
+                     
+       
+  }
+
+    }, (err) => {
+    console.log('err', err);
+     this.globals.loading.dismiss();
+     // this.loading.dismiss();
+      this.globals.presentToast("Network Error");
+    });
+        }, 2500);
+  
   }
 
   b64toBlob(b64Data:any, contentType:any) {

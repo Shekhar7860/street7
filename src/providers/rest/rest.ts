@@ -51,9 +51,24 @@ export class RestProvider {
         frm_data.append('insert', signup);
         frm_data.append('edit', update);
         frm_data.append('delete', del);
-        frm_data.append('user_profile_picture', photo);
+        frm_data.append('base64_user_profile_pic', photo);
         console.log('userData', frm_data)
         this.http.post(apiUrl+'/user_update.php', frm_data, {headers: headers})
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+   
+    });
+  }
+                    
+  userDetails(userId) {
+  console.log(userId);
+     return new Promise((resolve, reject) => {
+        var frm_data = new FormData();
+        frm_data.append('user_id', userId);
+        this.http.post(apiUrl+'/get_user_details.php', frm_data)
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -82,4 +97,45 @@ validateEmail(email) {
     return re.test(String(email).toLowerCase());
     conole.log('email', re.test(String(email).toLowerCase()))
 }
+
+getCategory()
+{
+ return new Promise((resolve, reject) => {
+  this.http.get(apiUrl + '/get_category.php')
+    .subscribe(data => {
+      resolve(data);
+    }, (err) => {
+      reject(err);
+    });
+    }); 
+ }
+
+ createPost(frm_data) {
+ console.log('data sent', frm_data)
+     return new Promise((resolve, reject) => {
+       var headers = new HttpHeaders();
+       headers.append('Content-Type', 'multipart/form-data');         
+        this.http.post(apiUrl+'/post_update.php', frm_data, { headers: headers })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });                      
+  }
+
+  getPosts(user_id, categoryId) {
+
+     return new Promise((resolve, reject) => {
+      var frm_data = new FormData();
+        frm_data.append('post_user_id', user_id);
+        frm_data.append('post_category', categoryId);
+        this.http.post(apiUrl+'/get_posts.php', frm_data)
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });                      
+  }
 }

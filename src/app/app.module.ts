@@ -18,6 +18,10 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { InboxPage } from '../pages/inbox/inbox';
 import { NewPostPage } from '../pages/new-post/new-post';
 import { ChatPage } from '../pages/chat/chat';
+import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
+import { ComplaintPage } from '../pages/complaint/complaint';
+import { PrivacyPage } from '../pages/privacy/privacy';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { ProfilePage } from '../pages/profile/profile';
 import { AngularFireModule } from '@angular/fire';
@@ -37,6 +41,9 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { InviteToStreet7Page } from '../pages/invite-to-street7/invite-to-street7';
 import { RestProvider } from '../providers/rest/rest';
 import { GlobalsProvider } from '../providers/globals/globals';
+import { MediaCapture} from '@ionic-native/media-capture';
+import { StreamingMedia} from '@ionic-native/streaming-media';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCzJL6qhSQYE6OSRlOuZW77j4cruxUFQRs",
@@ -66,7 +73,11 @@ const firebaseConfig = {
     CreateGroupPage,
     EditProfilePage,
     InviteToStreet7Page,
-	ChatPage
+	ChatPage,
+    AboutPage,
+ContactPage,
+ ComplaintPage, 
+ PrivacyPage 
   ],
   imports: [
     BrowserModule,
@@ -97,6 +108,10 @@ const firebaseConfig = {
     EditProfilePage,
     InviteToStreet7Page,
 	ChatPage, 
+    AboutPage,
+ContactPage,
+ ComplaintPage,
+ PrivacyPage 
   ],
   providers: [
     StatusBar,
@@ -113,7 +128,10 @@ const firebaseConfig = {
     TwitterConnect,
     Camera,
     InAppBrowser,  
-    Push
+    Push,
+    MediaCapture,
+   FileChooser,
+   StreamingMedia,
   ]
 })
 export class AppModule { }

@@ -1,15 +1,16 @@
 <ion-header no-border>
   <ion-navbar>
     <ion-title>NEW POST</ion-title>
-    <ion-buttons end ion-button round clear class="btn-edit-profile">
-      SHARE
+    <ion-buttons end >
+      <button ion-button clear class="btn-edit-profile" (click)="share()">SHARE</button>
     </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-grid>
     <ion-row class="row-more-media-title">
-      <ion-col class="col-more-media-title" (click)="takePhoto()">
+      <ion-col class="col-more-media-title" (click)="takePhotoVideo()">
         <ion-icon name="md-camera"></ion-icon>
         <ion-label class="lbl-photos-videos">Photos and Videos</ion-label>
       </ion-col>
@@ -19,14 +20,63 @@
         </ion-buttons>
       </ion-col>
     </ion-row>
-    <ion-row>
+   
+
+   <!--  <ion-row>
       <ion-col col-4 col-md-4 col-xl-3 *ngFor="let post of posts">
         <div class="post-container">
-          <img class="article-img" no-margin no-padding [src]="post.post_image">
+          <img class="article-img" no-margin no-padding [src]="post">
         </div>
       </ion-col>
-    </ion-row>
-    <form (submit)="createNewPost()">
+    </ion-row> -->
+      <ion-row>
+         <ion-col col-1>
+
+      </ion-col>
+      <ion-col col-3  (click)="selectphoto(show_image[0].id,0)">
+        <div class="post-container">
+          <img class="article-img" no-margin no-padding src="{{show_image[0].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-3  (click)="selectphoto(show_image[1].id,1)">
+        <div class="post-container">
+          <img class="article-img" no-margin no-padding src="{{show_image[1].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-3  (click)="selectphoto(show_image[2].id,2)">
+        <div class="post-container">
+          <img class="article-img" no-margin no-padding src="{{show_image[2].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-2>
+
+      </ion-col>
+    </ion-row> 
+
+      <ion-row>
+         <ion-col col-1>
+
+      </ion-col>
+      <ion-col col-3  (click)="selectphoto(show_image[3].id,3)">
+        <div class="post-container2">
+          <img class="article-img" no-margin no-padding src="{{show_image[3].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-3  (click)="selectphoto(show_image[4].id,4)">
+        <div class="post-container2">
+          <img class="article-img" no-margin no-padding src="{{show_image[4].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-3  (click)="selectphoto(show_image[5].id,5)">
+        <div class="post-container2">
+          <img class="article-img" no-margin no-padding src="{{show_image[5].url}}">
+        </div>
+      </ion-col>
+       <ion-col col-2>
+
+      </ion-col>
+    </ion-row> 
+    <form>
       <ion-row>
         <ion-col>
           <ion-item class="item-post_title">
@@ -90,10 +140,10 @@
       <ion-col>
         <!-- Categories line -->
         <ion-scroll class="category" scrollX="true">
-          <div class="category_scroll" *ngFor="let s of categories">
+          <div class="category_scroll" *ngFor="let s of categories" (click)="selectedCategory(s)">
             <p>{{s.category_name}}</p>
             <div class="category_img_bg">
-              <img no-margin no-padding class="category_img" [src]="s.img">
+              <img no-margin no-padding class="category_img" [src]="s.category_feature_image">
             </div>
             <!-- <p no-margin no-padding text-center class="story_text">{{ s.user_name }}</p> -->
           </div>

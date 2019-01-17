@@ -88,9 +88,11 @@ export class ProfilePage {
   ];
   profile_tab : any;
   public footerIsHidden: boolean = false;
-
+  loggedinuserdata : any;
   constructor(public app: App,public navCtrl: NavController, public navParams: NavParams) {
     this.profile_tab = "new_post";
+     this.loggedinuserdata = window.localStorage.getItem('userData');
+   console.log('userdata' , this.loggedinuserdata)
   }
 
   ionViewDidLoad() {

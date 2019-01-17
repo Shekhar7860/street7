@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController , App , LoadingController, ToastController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { RestProvider } from '../../providers/rest/rest';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
 import { OpenPostPage } from '../open-post/open-post';
 import { GroupsPage } from '../groups/groups';
@@ -11,6 +12,7 @@ import { GroupsPage } from '../groups/groups';
 })
 export class HomePage {
   loading: any;
+  loggedinuserdata : any ;
   isLoggedIn: boolean = false;
   // You can get this data from your API. This is a dumb data for being an example.
   public stories = [
@@ -205,7 +207,7 @@ export class HomePage {
   ];
 
   
-  constructor(public app: App, public navCtrl: NavController, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  constructor(public app: App, public navCtrl: NavController, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController,  public rest_call: RestProvider) {
     // if(!localStorage.getItem("user_id")) {
       // // navCtrl.setRoot(LoginPage);
       // this.app.getRootNav().push(LoginPage);
@@ -216,6 +218,28 @@ export class HomePage {
     // }
                              
   }
+
+   ionViewDidLoad() {
+   this.loggedinuserdata = window.localStorage.getItem('userData');
+   console.log(this.loggedinuserdata);
+    this.rest_call.getPosts(this.loggedinuserdata.user_id, 'style').then((result) => {
+    if(result){
+    console.log(result);
+    this.posts = result.data;
+  //   this.globals.loading.dismiss();
+  //  this.globals.presentToast("User Created Successfully");
+   // this.navCtrl.pop();
+    }
+    
+      // this.loading.dismiss();
+      // this.response = result;
+      // this.navCtrl.pop();
+    }, (err) => {
+    console.log(err);
+    //  this.globals.loading.dismiss();
+   //   this.globals.presentToast(JSON.stringify(err));
+    });
+   }
   logout() {
     this.showLoader();
     this.authService.logout().then((result) => {

@@ -31,7 +31,7 @@
       <ion-row>
         <ion-col col-6 col-md-4 col-xl-3 *ngFor="let post of posts">
             <div class="post-container" tappable (click)="openPostPage(post.id)">
-                <img class="article-img" no-margin no-padding [src]="post.post_image">
+                <img class="article-img" no-margin no-padding [src]="post.post_media_urls">
                 <div class="image-details">
                     <div class="left">
                         <p>{{post.post_title}}</p>
@@ -40,18 +40,18 @@
                         <p>
                           <img src="assets/imgs/view.png">
                            <!--  <ion-icon name="eye"></ion-icon> -->
-                            <i>2k</i>
+                            <i>{{post.post_comment_count}}</i>
                         </p>
                         <p>
                             <img src="assets/imgs/like.png">
                           
                             <!-- <ion-icon name="heart"></ion-icon> -->
-                            <i>2k</i>
+                            <i>{{post.post_likes_count}}</i>
                         </p>
                         <p>
                             <img src="assets/imgs/share.png">                          
                             <!-- <ion-icon name="md-share"></ion-icon> -->
-                            <i>2k</i>
+                            <i>{{post.post_share_count}}</i>
                         </p>
                     </div>
                 </div>

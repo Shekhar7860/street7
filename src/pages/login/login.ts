@@ -14,8 +14,8 @@ import { Instagram } from "ng2-cordova-oauth/core";
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { AngularFireDatabase } from '@angular/fire/database';
-
-@Component({
+                     
+@Component({                 
   selector: 'page-login',    
   templateUrl: 'login.html'
 })            
@@ -85,38 +85,35 @@ export class LoginPage implements OnInit {
 
  }
                    
-
+                  
   doLogin() {
     // this.navCtrl.setRoot(HomePage);
-	if(this.loginData.user_email && this.loginData.user_password){
-		
-	
-   // this.globals.showLoader('Authenticating...');
+	if(this.loginData.user_email && this.loginData.user_password){    
+    this.globals.showLoader('Authenticating...');
 	  this.rest_call.validateEmail(this.loginData.user_email);
     this.rest_call.login(this.loginData).then((result) => {
 	if(result){
-			 console.log(result);
-			//  this.globals.loading.dismiss();
-			//  this.globals.presentToast("Login Successfully");
-			//  this.navCtrl.push(TabsPage)
+   console.log(result);
+    if(result.status == 'success' )
+    {
+      window.localStorage.setItem('userData', JSON.stringify(result.data))
+        this.globals.loading.dismiss();
+        this.globals.presentToast("Login Successfully");
+        this.navCtrl.push(TabsPage)
+    }
+    else
+    {
+     this.globals.presentToast("Wrong Email Or Password");
+    }
+			               
+			 
 	}
-      // this.loading.dismiss();
-      // this.response = result;
-      // if(this.response.status == 'success'){
-        // localStorage.setItem('user_id', this.response.data.user_id);
-        // localStorage.setItem('user_name', this.response.data.user_name);
-        // localStorage.setItem('user_email', this.response.data.user_email);
-        // localStorage.setItem('user_status', this.response.data.user_status);  
-        // this.navCtrl.setRoot(HomePage);
-      // }else{
-        // this.loading.dismiss();
-        // this.globals.presentToast(this.response.message);
-      // }
+
     }, (err) => {
 		console.log(err);
-		// this.globals.loading.dismiss();
+		 this.globals.loading.dismiss();
      // this.loading.dismiss();
-      this.globals.presentToast("Wrong Email Or Password");
+      this.globals.presentToast("Network Error");
     });
 	}           
 	else
@@ -161,6 +158,7 @@ export class LoginPage implements OnInit {
                   // => Open user session and redirect to the next page
                        
               });
+               this.navCtrl.push(TabsPage)
 
           } 
           // An error occurred while loging-in
@@ -190,7 +188,7 @@ export class LoginPage implements OnInit {
   var provider = new firebase.auth.TwitterAuthProvider();
   this.twitter.login()
     .then( res => {
-     console.log(res)
+   this.navCtrl.push(TabsPage)
         
     }, err => {
       this.globals.presentToast("Twitter Not Installed");
