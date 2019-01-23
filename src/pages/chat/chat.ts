@@ -23,7 +23,7 @@ export class ChatPage {
   this.chats.on('child_added', resp => {
    
       this.messages.push(resp.val());
-   
+                                      
       console.log(this.messages)           
   })
   }

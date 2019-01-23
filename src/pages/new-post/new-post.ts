@@ -6,6 +6,7 @@ import { RestProvider } from "../../providers/rest/rest";
 import { FileChooser } from '@ionic-native/file-chooser';
 import { MediaCapture, MediaFile, CaptureError, CaptureVideoOptions } from '@ionic-native/media-capture';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 /**
  * Generated class for the NewPostPage page.
  *
@@ -167,8 +168,8 @@ const options: CameraOptions = {
       img: 'https://source.unsplash.com/100x60',
       category_name: 'Property'
     }
-  ];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public actionSheetCtrl:ActionSheetController,  public globals: GlobalsProvider, public rest_call: RestProvider, public streamingMedia: StreamingMedia, public fileChooser: FileChooser, private mediaCapture: MediaCapture) {
+  ];                             
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public actionSheetCtrl:ActionSheetController,  public globals: GlobalsProvider, public rest_call: RestProvider, public streamingMedia: StreamingMedia, public fileChooser: FileChooser, private mediaCapture: MediaCapture, public transfer : FileTransfer) {
    this.loggedinuserdata = window.localStorage.getItem('userData');
 
   }                         
@@ -213,15 +214,9 @@ const options: CameraOptions = {
                  sourceType: this.camera.PictureSourceType.CAMERA,
                  destinationType: this.camera.DestinationType.DATA_URL
               }).then((imageData) => {
-                    this.show_image[no].url = 'data:image/jpeg;base64,'+imageData;
-                     let block = this.show_image[no].url.split(";");
-                    let contentType = block[0].split(":")[1];// In this case "image/gif"
-                    let realData = block[1].split(",")[1];//
-                    let _image_object={
-                      'index':no,
-                      'image':this.b64toBlob(realData,contentType),
-                     };
-                    this.upload_images.push(_image_object);
+                     this.show_image[no].url = 'data:image/jpeg;base64,'+imageData;
+               
+                      this.upload_images.push(this.show_image[no].url);
                   
               }, (err) => {
               console.log(err);
@@ -236,14 +231,8 @@ const options: CameraOptions = {
               destinationType: this.camera.DestinationType.DATA_URL
            }).then((imageData) => {
                 this.show_image[no].url = 'data:image/jpeg;base64,'+imageData;
-                 let block = this.show_image[no].url.split(";");
-                   let contentType = block[0].split(":")[1];// In this case "image/gif"
-                    let realData = block[1].split(",")[1];//
-                    let _image_object={
-                      'index':no,
-                      'image':this.b64toBlob(realData,contentType),
-                     };
-                      this.upload_images.push(_image_object);
+               
+                      this.upload_images.push(this.show_image[no].url);
            }, (err) => {
            console.log(err);
          });
@@ -398,6 +387,38 @@ this.flag_upload = false;
     });
         }, 2500);
   
+  }
+
+  share2 () {
+const fileTransfer: FileTransferObject = this.transfer.create();
+ for(let i=0; i<this.upload_images.length; i++){
+  {
+    var filename = 'post_media';
+    var myparams = {
+     post_user_id :  52,
+     post_category  : 'style',
+    post_title :  'title',
+     post_description : 'description',
+     insert : 1
+    }
+  let options: FileUploadOptions = {
+    fileKey: filename,
+    fileName: filename,
+    chunkedMode: false,
+    mimeType: "image/jpeg",
+    headers: {},
+    params : myparams
+  }
+ 
+   
+   fileTransfer.upload(this.upload_images[i].image, 'http://demo.aarvitechnolabs.com/street7-api/api/post_update.php', options)
+    .then((data) => {
+    console.log(JSON.stringify(data) +" Uploaded Successfully");
+  }, (err) => {   
+    console.log(err);
+  });
+}
+  }
   }
 
   b64toBlob(b64Data:any, contentType:any) {

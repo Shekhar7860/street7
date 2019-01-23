@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { HttpModule } from '@angular/http';
 import { LoginPage } from '../pages/login/login';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { RegisterPage } from '../pages/register/register';
 import { HttpClientModule } from '@angular/common/http';
 import { Facebook } from '@ionic-native/facebook';
@@ -132,6 +133,7 @@ ContactPage,
     MediaCapture,
    FileChooser,
    StreamingMedia,
+    FileTransfer
   ]
 })
 export class AppModule { }

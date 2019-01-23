@@ -17,7 +17,7 @@ export class RegisterPage {
   destinationType: this.camera.DestinationType.FILE_URI,
   encodingType: this.camera.EncodingType.JPEG,
   mediaType: this.camera.MediaType.PICTURE
-}
+}                              
   newPhoto : any ;
   loading: any;
   selectedimage : any;
